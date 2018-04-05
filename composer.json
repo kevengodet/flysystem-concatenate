@@ -1,0 +1,27 @@
+{
+    "name": "keven/flysystem-concatenate",
+    "description": "Concatenation plugin for league/flysystem",
+    "license": "mit",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Keven Godet",
+            "email": "contact@keven.fr",
+            "homepage": "http://keven.fr",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Keven\\Flysystem\\Concatenate\\": "src"
+        }
+    },
+    "require": {
+        "league/flysystem": "^1.0",
+        "keven/append-stream": "^1.0"
+    },
+    "require-dev": {
+        "league/flysystem-vfs": "^1.0",
+        "phpunit/phpunit": "^7.0"
+    }
+}
