@@ -26,9 +26,9 @@ final class Append extends AbstractPlugin
      *
      *     $filesystem->concatenate('/path/to/target', $path1, $path2, ...);
      *
-     * @param   string  $target     Target path.
-     * @param   string  $content    Content to append.
-     * @return  boolean             True on success. False on failure.
+     * @param   string        $target     Target path.
+     * @param   string|stream $content    Content to append (a string, or a stream resource).
+     * @return  boolean       True on success. False on failure.
      */
     public function handle($target, $content)
     {
@@ -42,9 +42,10 @@ final class Append extends AbstractPlugin
 
         $this->filesystem->rename($target, $backup = $target.'.backup');
 
+        $contentToAppend = is_resource($content) ? $content : fopen('data://text/plain,'.$content,'r');
         $stream = (new AppendStream([
             $this->filesystem->readStream($backup),
-            fopen('data://text/plain,'.$content,'r'),
+            $contentToAppend,
         ]))->getResource();
 
         $this->filesystem->writeStream($target, $stream);

@@ -26,10 +26,18 @@ class AppendTest extends \PHPUnit\Framework\TestCase
         $this->filesystem->append('/file1');
     }
 
-    function testAppend()
+    function testAppendString()
     {
         $this->filesystem->write('/file1', 'file1');
         $this->filesystem->append('/file1', 'more');
+
+        $this->assertEquals('file1more', $this->filesystem->read('/file1'));
+    }
+
+    function testAppendStream()
+    {
+        $this->filesystem->write('/file1', 'file1');
+        $this->filesystem->append('/file1', fopen('data://text/plain,more','r'));
 
         $this->assertEquals('file1more', $this->filesystem->read('/file1'));
     }
